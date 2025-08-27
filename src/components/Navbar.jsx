@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useUser, SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react';
 
 const Navbar = () => {
