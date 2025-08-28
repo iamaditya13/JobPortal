@@ -10,7 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@clerk/clerk-react": "^5.44.0",
+    "@clerk/clerk-react": "^5.45.0",
+    "@headlessui/react": "^2.2.7",
     "@tailwindcss/postcss": "^4.1.12",
     "@tailwindcss/vite": "^4.1.12",
     "react": "^19.1.1",

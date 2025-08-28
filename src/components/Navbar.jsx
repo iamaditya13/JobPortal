@@ -1,68 +1,66 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useUser, SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react';
+import React from "react";
+import { Link } from "react-router-dom";
+import {
+  useUser,
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  UserButton,
+} from "@clerk/clerk-react";
 
 const Navbar = () => {
-  const {user} = useUser();
+  const { user } = useUser();
   const role = user?.publicMetadata?.role;
 
   return (
-    <nav className="flex justify-between items-center px-10 py-6 bg-white shadow-md">
-      <div className="font-bold text-2xl text-slate-900">
-        <Link to="/"> JOB PORTAL</Link>
-      </div>
+    <header className="sticky top-0 z-30 w-full border-b border-gray-200 bg-white/80 backdrop-blur">
+      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
+        <Link to="/" className="font-extrabold tracking-tight text-gray-900">
+          JOB PORTAL
+        </Link>
 
-      <ul className="flex gap-8 text-lg items-center">
-        <li>
-          <Link to="/" className="hover:text-teal-500">
+        <nav className="hidden gap-6 text-sm font-medium text-gray-700 md:flex">
+          <Link to="/" className="hover:text-gray-900">
             Home
           </Link>
-        </li>
-        <li>
-          <Link to="/about" className="hover:text-teal-500">
+          <a className="hover:text-gray-900" href="#about">
             About
-          </Link>
-        </li>
-        <li>
-          <Link to="/companies" className="hover:text-teal-500">
+          </a>
+          <a className="hover:text-gray-900" href="#companies">
             Companies
-          </Link>
-        </li>
-        <li>
-          <Link to="/contact" className="hover:text-teal-500">
+          </a>
+          <a className="hover:text-gray-900" href="#contact">
             Contact
-          </Link>
-        </li>
-
-        <SignedIn>
+          </a>
           {role === "seeker" && (
-            <li>
-              <Link to="/jobs" className="nav-btn">
-                Browse Jobs
-              </Link>
-            </li>
+            <Link to="/jobs" className="hover:text-gray-900">
+              Browse Jobs
+            </Link>
           )}
           {role === "recruiter" && (
-            <li>
-              <Link to="/post-job" className="nav-btn">
-                Post Job
-              </Link>
-            </li>
+            <Link to="/post-job" className="hover:text-gray-900">
+              Post Job
+            </Link>
           )}
-        </SignedIn>
+        </nav>
 
-        <SignedOut>
-          <SignInButton mode="modal">
-            <button className="nav-btn">Login / Signup</button>
-          </SignInButton>
-        </SignedOut>
-
-        <SignedIn>
-          <UserButton afterSignOutUrl="/" />
-        </SignedIn>
-      </ul>
-    </nav>
+        <div className="flex items-center gap-3">
+          <SignedOut>
+            <SignInButton mode="modal">
+              <button className="rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium hover:bg-gray-50">
+                Login / Signup
+              </button>
+            </SignInButton>
+          </SignedOut>
+          <SignedIn>
+            <UserButton
+              appearance={{ elements: { userButtonAvatarBox: "w-8 h-8" } }}
+            />
+          </SignedIn>
+        </div>
+      </div>
+    </header>
   );
-}
+};
 
 export default Navbar;

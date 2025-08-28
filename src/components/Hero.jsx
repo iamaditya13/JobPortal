@@ -1,55 +1,68 @@
-import React,{useState} from 'react';
-import { useUser, SignedIn, SignedOut } from '@clerk/clerk-react';
+import React, { useState } from "react";
+import { useUser, SignedIn, SignedOut } from "@clerk/clerk-react";
 
-const Hero = () => {
-  const {user} = useUser();
+const Hero = ({ onSubmit }) => {
+  const { user } = useUser();
   const role = user?.publicMetadata?.role;
   const [jobTitle, setJobTitle] = useState("");
-  const [location, setLocation] = useState("");  
+  const [location, setLocation] = useState("");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit?.({ jobTitle, location });
+  };
 
   return (
-    <div className="flex flex-col items-center text-center mt-20 px-6">
-      <SignedOut>
-        <h1 className="text-5xl font-bold">Find your new job</h1>
-        <p className="text-lg text-gray-600">Search, apply, and get hired.</p>
-      </SignedOut>
+    <section className="py-16">
+      <div className="mx-auto max-w-3xl text-center">
+        <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
+          Search, apply, and get hired.
+        </h1>
+        <p className="mt-3 text-gray-600">
+          {role === "recruiter"
+            ? "Post jobs and connect with skilled candidates."
+            : "Search thousands of opportunities tailored for you."}
+        </p>
 
-       <SignedIn>
-        {role === "seeker" && (
-          <>
-            <h1 className="text-5xl font-bold">Find your next job</h1>
-            <p className="text-lg text-gray-600">Search thousands of opportunities tailored for you.</p>
-          </>
-        )}
-        {role === "recruiter" && (
-          <>
-            <h1 className="text-5xl font-bold">Hire top talent</h1>
-            <p className="text-lg text-gray-600">Post jobs and connect with skilled candidates.</p>
-          </>
-        )}
-      </SignedIn>
+        <form
+          onSubmit={handleSubmit}
+          className="mx-auto w-full max-w-3xl"
+          role="search"
+        >
+          <div className="flex overflow-hidden rounded-xl border border-gray-300 bg-white shadow-sm">
+            <input
+              type="text"
+              value={jobTitle}
+              onChange={(e) => setJobTitle(e.target.value)}
+              placeholder="Job title"
+              className="w-full px-4 py-3 text-sm outline-none"
+              aria-label="Job title"
+            />
+            <span className="hidden h-10 self-center border-l border-gray-200 sm:block" />
+            <input
+              type="text"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              placeholder="Location"
+              className="w-full px-4 py-3 text-sm outline-none"
+              aria-label="Location"
+            />
+            <button
+              type="submit"
+              className="bg-gray-900 px-5 text-sm font-semibold text-white hover:bg-gray-800"
+              aria-label="Search"
+            >
+              Search
+            </button>
+          </div>
+        </form>
 
-      {role === "seeker" && (
-        <div className="flex w-full max-w-2xl mt-6">
-          <input type="text" placeholder="Job title"
-            value={jobTitle} onChange={(e) => setJobTitle(e.target.value)}
-            className="border px-4 py-2 flex-1 rounded-l-md" />
-          <input type="text" placeholder="Location"
-            value={location} onChange={(e) => setLocation(e.target.value)}
-            className="border px-4 py-2 flex-1" />
-          <button className="bg-teal-500 text-white px-6 py-2 rounded-r-md">Search</button>
-        </div>
-      )}
-
-      <SignedOut>
-        <button className="nav-btn mt-6">Get Started</button>
-      </SignedOut>
-      <SignedIn>
-        {role === "seeker" && <button className="nav-btn mt-6">Browse Jobs</button>}
-        {role === "recruiter" && <button className="nav-btn mt-6">Post a Job</button>}
-      </SignedIn>
-
-    </div>
+        <SignedOut>
+          <p className="mt-3 text-xs text-gray-500">
+            Sign in to see personalized results.
+          </p>
+        </SignedOut>
+      </div>
+    </section>
   );
 };
 

@@ -1,5 +1,5 @@
-import React from 'react';
-import { useUser } from '@clerk/clerk-react';
+import React from "react";
+import { useUser } from "@clerk/clerk-react";
 import { Link } from "react-router-dom";
 
 const DashboardLayout = ({ children }) => {
@@ -12,7 +12,6 @@ const DashboardLayout = ({ children }) => {
     { name: "Applied Jobs", path: "/applied" },
     { name: "Profile", path: "/profile" },
   ];
-
   const recruiterLinks = [
     { name: "Home", path: "/recruiter-dashboard" },
     { name: "Post a Job", path: "/post-job" },
@@ -23,28 +22,28 @@ const DashboardLayout = ({ children }) => {
   const navLinks = role === "seeker" ? seekerLinks : recruiterLinks;
 
   return (
-
-    <div className="flex min-h-screen bg-gray-100">
-      <aside className="w-64 bg-slate-900 text-white p-6">
-        <h2 className="text-2xl font-bold mb-6">JobPortal</h2>
-        <nav className="space-y-4">
-          {navLinks.map((link) => (
-            <Link key={link.path} to={link.path} className="block hover:text-teal-400">{link.name}</Link>
+    <div className="mx-auto grid min-h-[calc(100vh-56px)] max-w-6xl grid-cols-1 gap-6 px-4 py-6 md:grid-cols-[220px,1fr]">
+      <aside className="rounded-xl border border-gray-200 bg-white p-4">
+        <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-gray-500">
+          {role === "seeker" ? "Seeker" : "Recruiter"} Menu
+        </p>
+        <nav className="space-y-1">
+          {navLinks.map((l) => (
+            <Link
+              key={l.path}
+              to={l.path}
+              className="block rounded-lg px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"
+            >
+              {l.name}
+            </Link>
           ))}
-          <div className="mt-6 border-t border-slate-700 pt-4">
-            <Link to="/settings" className="block hover:text-teal-400">Settings</Link>
-          </div>
         </nav>
-        <div className="mt-10 border-t border-slate-700 pt-4">
-          <p className="text-sm">Signed in as</p>
-          <p className="font-semibold">{user?.fullName}</p>
-          <p className="text-xs text-gray-400 capitalize">{role}</p>
-        </div>
       </aside>
-      <main className="flex-1 p-8">{children}</main>
+      <main className="rounded-xl border border-gray-200 bg-white p-6">
+        {children}
+      </main>
     </div>
   );
 };
-
 
 export default DashboardLayout;

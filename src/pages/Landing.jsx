@@ -4,10 +4,12 @@ import Hero from "../components/Hero";
 
 const Landing = () => {
   return (
-    <div>
+    <>
       <Navbar />
-      <Hero />
-    </div>
+      <main className="mx-auto max-w-6xl px-4">
+        <Hero />
+      </main>
+    </>
   );
 };
 
