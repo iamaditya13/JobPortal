@@ -19,10 +19,7 @@ const Navbar = () => {
           JOB PORTAL
         </Link>
 
-        <nav className="hidden gap-6 text-sm font-medium text-gray-700 md:flex">
-          <Link to="/" className="hover:text-gray-900">
-            Home
-          </Link>
+        <nav className=" flex items-center gap-6 text-sm font-medium text-gray-700 md:flex">
           <a className="hover:text-gray-900" href="#about">
             About
           </a>
@@ -48,7 +45,7 @@ const Navbar = () => {
           <SignedOut>
             <SignInButton mode="modal">
               <button className="rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium hover:bg-gray-50">
-                Login / Signup
+                Login | Signup
               </button>
             </SignInButton>
           </SignedOut>
