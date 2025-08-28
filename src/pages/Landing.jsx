@@ -1,14 +1,18 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
+import HomeSection from "../components/HomeSection";
 
 const Landing = () => {
+  const handleSearch = ({ jobTitle, location }) => {
+    console.log("Search:", { jobTitle, location });
+  };
+
   return (
     <>
       <Navbar />
-      <main className="mx-auto max-w-6xl px-4">
-        <Hero />
-      </main>
+      <Hero onSubmit={handleSearch} />
+      <HomeSection />
     </>
   );
 };

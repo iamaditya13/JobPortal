@@ -6,13 +6,12 @@ import {
   RedirectToSignIn,
   useUser,
 } from "@clerk/clerk-react";
-import { Navigate } from "react-router-dom";
+
 
 const SeekerDashboard = () => {
   const { user } = useUser();
-  const role = user?.publicMetadata?.role;
 
-  if (role && role !== "seeker") return <Navigate to="/select-role" replace />;
+
 
   return (
     <>
